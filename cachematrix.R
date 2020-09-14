@@ -8,18 +8,25 @@
 # retrieves the inverse from the cache.
 
 ## This function receives a matrix 'M' and set the inverse of 'M', 'Mi', to be 
-## NULL after that, it creates three new functions:`getmat` that gets the matrix
-## 'M', `setinv` that sets a matrix to be the inverse of 'M' and `getinv` that
-## returns 'M^(-1)'.
-## Finally, the value returned by this function is a list with three components
-## (getmat, setinv, getinv), a "special matrix object"
+## NULL after that, it creates four new functions:
+## `setmat  that sets 'M' to a new matrix and 'Mi' to NULL,
+## `getmat` that gets the matrix 'M', 
+## `setinv` that sets a matrix to be the inverse of 'M' and 
+## `getinv` that returns 'M^(-1)'.
+## Finally, the value returned by this function is a list with four components
+## (setmat, getmat, setinv, getinv), a "special matrix object"
 
 makeCacheMatrix <- function(M = matrix()) {
   Mi <- NULL
+  setmat <- function(Mat) {
+    M <<- Mat
+    Mi <<- NULL
+  }
   getmat <- function() M
   setinv <- function(solve) Mi <<- solve
   getinv <- function() Mi
-  list(getmat = getmat,
+  list(setmat = setmat,
+       getmat = getmat,
        setinv = setinv,
        getinv = getinv)
 }
